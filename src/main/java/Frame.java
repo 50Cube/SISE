@@ -15,4 +15,8 @@ public class Frame {
     public void setFieldValue(int height, int width, int value) {
         fields[height][width] = value;
     }
+
+    public int getField(int height, int width) {
+        return fields[height][width];
+    }
 }

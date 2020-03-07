@@ -6,14 +6,21 @@ public class Main {
             throw new IllegalArgumentException("Podano nieprawidlowa liczbe argumentow");
 
         FileOperations fileOperations = new FileOperations();
-        System.out.println(fileOperations.readFrame(args[2]));
+        Frame frame = fileOperations.readFrame(args[2]);
+        System.out.println(frame);
 
         switch (args[0]) {
             case "bfs":
                 System.out.println("Wybrano strategie przeszukiwania wrzerz");
+                BFS bfs = new BFS(frame,args[1]);
+                fileOperations.writeSolution(args[3],bfs);
+                fileOperations.writeDetails(args[4],bfs);
                 break;
             case "dfs":
                 System.out.println("Wybrano strategie przeszukiwania w glab");
+                DFS dfs = new DFS(frame,args[1]);
+                fileOperations.writeSolution(args[3],dfs);
+                fileOperations.writeDetails(args[4],dfs);
                 break;
             case "astr":
                 System.out.println("Wybrano strategie najpierw najlepszy");
