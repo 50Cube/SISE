@@ -6,7 +6,7 @@ public abstract class Algorithm {
     private int processedStates;
     private int maxRecursionDepth;
     private double time;
-    private Frame frame;
+    protected Frame frame;
     private Frame solvedFrame;
     private String solution;
 

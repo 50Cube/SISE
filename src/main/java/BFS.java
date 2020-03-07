@@ -5,5 +5,4 @@ public class BFS extends Algorithm {
         super(frame);
         this.searchOrder = searchOrder;
     }
-
 }
