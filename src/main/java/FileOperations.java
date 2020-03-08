@@ -17,10 +17,11 @@ public class FileOperations {
 
         for(int i=0; i<height; i++) {
             for(int j=0; j<width; j++) {
-                frame.setFieldValue(i,j,Integer.parseInt(split[tmp]));
+                frame.setFieldValue(j,i,Integer.parseInt(split[tmp]));
                 tmp++;
             }
         }
+        frame.findZero();
 
         return frame;
     }
@@ -28,10 +29,10 @@ public class FileOperations {
     public void writeSolution(String file, Algorithm algorithm) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
 
-        if(algorithm.isSolved()) {
-            stringBuilder.append(algorithm.getSolution().length());
+        if(algorithm.isSolved(algorithm.getFrame())) {
+            stringBuilder.append(algorithm.getSolution().toString().length());
             stringBuilder.append(System.lineSeparator());
-            stringBuilder.append(algorithm.getSolution());
+            stringBuilder.append(algorithm.getSolution().toString());
         }
         else stringBuilder.append(-1);
 
@@ -43,8 +44,8 @@ public class FileOperations {
     public void writeDetails(String file, Algorithm algorithm) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
 
-        if(algorithm.isSolved())
-            stringBuilder.append(algorithm.getSolution().length());
+        if(algorithm.isSolved(algorithm.getFrame()))
+            stringBuilder.append(algorithm.getSolution().toString().length());
         else stringBuilder.append(-1);
 
         stringBuilder.append(System.lineSeparator());

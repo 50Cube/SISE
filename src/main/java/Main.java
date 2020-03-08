@@ -13,6 +13,9 @@ public class Main {
             case "bfs":
                 System.out.println("Wybrano strategie przeszukiwania wrzerz");
                 BFS bfs = new BFS(frame,args[1]);
+                frame = bfs.solve();
+                System.out.println(frame);
+                System.out.println(bfs.getSolution().toString());
                 fileOperations.writeSolution(args[3],bfs);
                 fileOperations.writeDetails(args[4],bfs);
                 break;

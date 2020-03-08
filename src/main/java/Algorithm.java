@@ -1,5 +1,8 @@
 import lombok.Data;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 @Data
 public abstract class Algorithm {
     private int visitedStates;
@@ -8,11 +11,15 @@ public abstract class Algorithm {
     private double time;
     protected Frame frame;
     private Frame solvedFrame;
-    private String solution;
+    private StringBuilder solution;
+
+    private final Queue<Frame> states;
 
     public Algorithm(Frame frame) {
         this.frame = frame;
         generateSolvedFrame();
+        states = new LinkedList<>();
+        solution = new StringBuilder();
     }
 
     private void generateSolvedFrame() {
@@ -28,7 +35,7 @@ public abstract class Algorithm {
         solvedFrame.setFieldValue(frame.getHeight() - 1, frame.getWidth() - 1, 0);
     }
 
-    public boolean isSolved() {
+    public boolean isSolved(Frame frame) {
         boolean tmp = true;
 
         if(frame.getWidth() == solvedFrame.getWidth() && frame.getHeight() == solvedFrame.getHeight()) {

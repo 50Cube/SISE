@@ -4,28 +4,40 @@ import lombok.Data;
 public class Frame {
     private int height;
     private int width;
-    private int fields[][];
+    private int[][] fields;
     private int zeroX, zeroY;
 
     public Frame(int height, int width) {
         this.height = height;
         this.width = width;
         this.fields = new int[height][width];
+    }
+
+    public Frame(Frame newFrame) {
+        this.height = newFrame.getHeight();
+        this.width = newFrame.getWidth();
+        fields = new int[height][width];
+
+        for(int i=0; i<height; i++) {
+            for(int j=0; j<width; j++) {
+                fields[j][i] = newFrame.fields[j][i];
+            }
+        }
         this.findZero();
     }
 
     public void setFieldValue(int height, int width, int value) {
-        fields[height][width] = value;
+        fields[width][height] = value;
     }
 
     public int getField(int height, int width) {
-        return fields[height][width];
+        return fields[width][height];
     }
 
-    private void findZero() {
+    public void findZero() {
         for(int i=0; i<height; i++) {
             for(int j=0; j<width; j++) {
-                if(fields[i][j] == 0) {
+                if(fields[j][i] == 0) {
                     zeroX = i;
                     zeroY = j;
                 }
@@ -47,6 +59,8 @@ public class Frame {
             case "R":
                 if(zeroX != width-1) return true;
                 break;
+            default:
+                return false;
         }
         return false;
     }
@@ -74,5 +88,23 @@ public class Frame {
             default:
                 return "";
         }
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nHeight: " + this.height + '\n');
+        sb.append("Width: " + this.width + '\n');
+        sb.append("ZeroX: " + this.zeroX + '\n');
+        sb.append("ZeroY: " + this.zeroY + '\n');
+        sb.append(System.lineSeparator());
+
+        for(int i = 0;i < height;i++){
+            for(int j = 0;j < width;j++){
+                sb.append(String.format("%3s",fields[i][j]));
+            }
+            sb.append(System.lineSeparator());
+        }
+        return sb.toString();
     }
 }
