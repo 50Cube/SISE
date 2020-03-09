@@ -17,7 +17,7 @@ public class FileOperations {
 
         for(int i=0; i<height; i++) {
             for(int j=0; j<width; j++) {
-                frame.setFieldValue(j,i,Integer.parseInt(split[tmp]));
+                frame.setFieldValue(i,j,Integer.parseInt(split[tmp]));
                 tmp++;
             }
         }

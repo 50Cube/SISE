@@ -66,9 +66,9 @@ public class Frame {
     }
 
     public void swapFields(int x1, int y1, int x2, int y2) {
-        int tmp = getField(x1,y1);
-        setFieldValue(x1, y1, getField(x2, y2));
-        setFieldValue(x2, y2, tmp);
+        int tmp = fields[x1][y1];
+        fields[x1][y1] = fields[x2][y2];
+        fields[x2][y2] = tmp;
         zeroX = x2;
         zeroY = y2;
     }
@@ -103,7 +103,7 @@ public class Frame {
 
         for(int i = 0;i < height;i++){
             for(int j = 0;j < width;j++){
-                sb.append(String.format("%3s",fields[j][i]));
+                sb.append(String.format("%3s",fields[i][j]));
             }
             sb.append(System.lineSeparator());
         }
