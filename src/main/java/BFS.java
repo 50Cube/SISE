@@ -14,8 +14,11 @@ public class BFS extends Algorithm {
         while(!this.getStates().isEmpty()) {
             Frame newFrame = this.getStates().poll();
 
+            //newFrame.move("D");
+
             if(this.isSolved(newFrame)) {
                 this.setFrame(newFrame);
+                return this.frame;
             }
 
             for (int i=0; i<this.searchOrder.length(); i++) {

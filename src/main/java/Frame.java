@@ -26,12 +26,12 @@ public class Frame {
         this.findZero();
     }
 
-    public void setFieldValue(int height, int width, int value) {
-        fields[width][height] = value;
+    public void setFieldValue(int y, int x, int value) {
+        fields[y][x] = value;
     }
 
-    public int getField(int height, int width) {
-        return fields[width][height];
+    public int getField(int y, int x) {
+        return fields[y][x];
     }
 
     public void findZero() {
@@ -66,24 +66,26 @@ public class Frame {
     }
 
     public void swapFields(int x1, int y1, int x2, int y2) {
-        int tmp = fields[x1][y1];
-        fields[x1][y1] = fields[x2][y2];
-        fields[x2][y2] = tmp;
+        int tmp = getField(x1,y1);
+        setFieldValue(x1, y1, getField(x2, y2));
+        setFieldValue(x2, y2, tmp);
+        zeroX = x2;
+        zeroY = y2;
     }
 
     public String move(String direction) {
         switch(direction) {
             case "U":
-                swapFields(zeroX, zeroY, zeroX, zeroY - 1);
+                swapFields(zeroY, zeroX, zeroY - 1, zeroX);
                 return "U";
             case "D":
-                swapFields(zeroX, zeroY, zeroX, zeroY + 1);
+                swapFields(zeroY, zeroX, zeroY + 1, zeroX);
                 return "D";
             case "L":
-                swapFields(zeroX, zeroY, zeroX - 1, zeroY);
+                swapFields(zeroY, zeroX, zeroY, zeroX - 1);
                 return "L";
             case "R":
-                swapFields(zeroX, zeroY, zeroX + 1, zeroY);
+                swapFields(zeroY, zeroX, zeroY, zeroX + 1);
                 return "R";
             default:
                 return "";
@@ -101,7 +103,7 @@ public class Frame {
 
         for(int i = 0;i < height;i++){
             for(int j = 0;j < width;j++){
-                sb.append(String.format("%3s",fields[i][j]));
+                sb.append(String.format("%3s",fields[j][i]));
             }
             sb.append(System.lineSeparator());
         }

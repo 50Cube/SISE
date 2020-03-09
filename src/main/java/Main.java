@@ -11,7 +11,7 @@ public class Main {
 
         switch (args[0]) {
             case "bfs":
-                System.out.println("Wybrano strategie przeszukiwania wrzerz");
+                System.out.println("Wybrano strategie przeszukiwania wszerz");
                 BFS bfs = new BFS(frame,args[1]);
                 frame = bfs.solve();
                 System.out.println(frame);
