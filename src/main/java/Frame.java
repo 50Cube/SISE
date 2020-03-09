@@ -6,6 +6,7 @@ public class Frame {
     private int width;
     private int[][] fields;
     private int zeroX, zeroY;
+    private String move = "";
 
     public Frame(int height, int width) {
         this.height = height;
@@ -19,27 +20,25 @@ public class Frame {
         fields = new int[height][width];
 
         for(int i=0; i<height; i++) {
-            for(int j=0; j<width; j++) {
-                fields[j][i] = newFrame.fields[j][i];
-            }
+            if (width >= 0) System.arraycopy(newFrame.fields[i], 0, fields[i], 0, width);
         }
         this.findZero();
     }
 
-    public void setFieldValue(int y, int x, int value) {
-        fields[y][x] = value;
+    public void setFieldValue(int height, int width, int value) {
+        fields[height][width] = value;
     }
 
-    public int getField(int y, int x) {
-        return fields[y][x];
+    public int getField(int height, int width) {
+        return fields[height][width];
     }
 
     public void findZero() {
         for(int i=0; i<height; i++) {
             for(int j=0; j<width; j++) {
-                if(fields[j][i] == 0) {
-                    zeroX = i;
-                    zeroY = j;
+                if(fields[i][j] == 0) {
+                    zeroX = j;
+                    zeroY = i;
                 }
             }
         }
@@ -48,47 +47,42 @@ public class Frame {
     public boolean canMove(String direction) {
         switch(direction) {
             case "U":
-                if(zeroY != 0) return true;
-                break;
+                if(zeroY != 0) { return true; } else return false;
             case "D":
-                if(zeroY != height-1) return true;
-                break;
+                if(zeroY != height-1) { return true; } else return false;
             case "L":
-                if(zeroX != 0) return true;
-                break;
+                if(zeroX != 0) { return true; } else return false;
             case "R":
-                if(zeroX != width-1) return true;
-                break;
+                if(zeroX != width-1) { return true; } else return false;
             default:
                 return false;
         }
-        return false;
     }
 
     public void swapFields(int x1, int y1, int x2, int y2) {
-        int tmp = fields[x1][y1];
-        fields[x1][y1] = fields[x2][y2];
-        fields[x2][y2] = tmp;
-        zeroX = x2;
-        zeroY = y2;
+        int tmp = fields[y1][x1];
+        fields[y1][x1] = fields[y2][x2];
+        fields[y2][x2] = tmp;
+        findZero();
     }
 
-    public String move(String direction) {
+    public void move(String direction) {
+        this.move = direction;
         switch(direction) {
             case "U":
-                swapFields(zeroY, zeroX, zeroY - 1, zeroX);
-                return "U";
+                swapFields(zeroX, zeroY, zeroX, zeroY - 1);
+                break;
             case "D":
-                swapFields(zeroY, zeroX, zeroY + 1, zeroX);
-                return "D";
+                swapFields(zeroX, zeroY, zeroX, zeroY + 1);
+                break;
             case "L":
-                swapFields(zeroY, zeroX, zeroY, zeroX - 1);
-                return "L";
+                swapFields(zeroX, zeroY, zeroX - 1, zeroY);
+                break;
             case "R":
-                swapFields(zeroY, zeroX, zeroY, zeroX + 1);
-                return "R";
+                swapFields(zeroX, zeroY, zeroX + 1, zeroY);
+                break;
             default:
-                return "";
+                break;
         }
     }
 

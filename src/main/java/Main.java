@@ -15,7 +15,7 @@ public class Main {
                 BFS bfs = new BFS(frame,args[1]);
                 frame = bfs.solve();
                 System.out.println(frame);
-                System.out.println(bfs.getSolution().toString());
+                System.out.println(bfs.generateSolutionString());
                 fileOperations.writeSolution(args[3],bfs);
                 fileOperations.writeDetails(args[4],bfs);
                 break;

@@ -5,7 +5,7 @@ import java.util.Queue;
 
 @Data
 public abstract class Algorithm {
-    private int visitedStates;
+    private int visitedStatesAmount;
     private int processedStates;
     private int maxRecursionDepth;
     private double time;
@@ -13,12 +13,14 @@ public abstract class Algorithm {
     private Frame solvedFrame;
     private StringBuilder solution;
 
-    private final Queue<Frame> states;
+    private Queue<Frame> visitedStates;
+    private Queue<Frame> statesToVisit;
 
     public Algorithm(Frame frame) {
         this.frame = frame;
         generateSolvedFrame();
-        states = new LinkedList<>();
+        visitedStates = new LinkedList<>();
+        statesToVisit = new LinkedList<>();
         solution = new StringBuilder();
     }
 

@@ -49,7 +49,7 @@ public class FileOperations {
         else stringBuilder.append(-1);
 
         stringBuilder.append(System.lineSeparator());
-        stringBuilder.append(algorithm.getVisitedStates());
+        stringBuilder.append(algorithm.getVisitedStatesAmount());
 
         stringBuilder.append(System.lineSeparator());
         stringBuilder.append(algorithm.getProcessedStates());

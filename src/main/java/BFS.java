@@ -9,12 +9,11 @@ public class BFS extends Algorithm {
     }
 
     public Frame solve() {
-        this.getStates().add(frame);
+        this.getStatesToVisit().add(frame);
 
-        while(!this.getStates().isEmpty()) {
-            Frame newFrame = this.getStates().poll();
-
-            //newFrame.move("D");
+        while(!this.getStatesToVisit().isEmpty()) {
+            Frame newFrame = this.getStatesToVisit().poll();
+            this.getVisitedStates().add(newFrame);
 
             if(this.isSolved(newFrame)) {
                 this.setFrame(newFrame);
@@ -24,11 +23,20 @@ public class BFS extends Algorithm {
             for (int i=0; i<this.searchOrder.length(); i++) {
                 if(newFrame.canMove(this.searchOrderArray[i])) {
                     Frame movedFrame = new Frame(newFrame);
-                    this.getSolution().append(movedFrame.move(searchOrderArray[i]));
-                    this.getStates().add(movedFrame);
+                    movedFrame.move(searchOrderArray[i]);
+
+                    if(!this.getVisitedStates().contains(movedFrame))
+                        this.getStatesToVisit().add(movedFrame);
                 }
             }
         }
         return this.frame;
+    }
+
+    public String generateSolutionString() {
+        for(Frame f : this.getVisitedStates())
+            this.getSolution().append(f.getMove());
+
+        return this.getSolution().toString();
     }
 }
