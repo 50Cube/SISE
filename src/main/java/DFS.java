@@ -6,4 +6,9 @@ public class DFS extends Algorithm {
         super(frame);
         this.searchOrder = searchOrder;
     }
+
+    @Override
+    public Frame solve() {
+        return null;
+    }
 }

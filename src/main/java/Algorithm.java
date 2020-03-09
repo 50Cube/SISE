@@ -11,7 +11,6 @@ public abstract class Algorithm {
     private double time;
     protected Frame frame;
     private Frame solvedFrame;
-    private StringBuilder solution;
 
     private Queue<Frame> visitedStates;
     private Queue<Frame> statesToVisit;
@@ -21,7 +20,6 @@ public abstract class Algorithm {
         generateSolvedFrame();
         visitedStates = new LinkedList<>();
         statesToVisit = new LinkedList<>();
-        solution = new StringBuilder();
     }
 
     private void generateSolvedFrame() {
@@ -51,5 +49,14 @@ public abstract class Algorithm {
         else tmp = false;
 
         return tmp;
+    }
+
+    public abstract Frame solve();
+
+    public Frame run() {
+        long time = System.nanoTime();
+        Frame frame = this.solve();
+        this.setTime((System.nanoTime() - time) / 1000000.0);
+        return frame;
     }
 }

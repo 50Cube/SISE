@@ -6,7 +6,7 @@ public class Frame {
     private int width;
     private int[][] fields;
     private int zeroX, zeroY;
-    private String move = "";
+    private String solution = "";
 
     public Frame(int height, int width) {
         this.height = height;
@@ -18,6 +18,7 @@ public class Frame {
         this.height = newFrame.getHeight();
         this.width = newFrame.getWidth();
         fields = new int[height][width];
+        this.setSolution(newFrame.getSolution());
 
         for(int i=0; i<height; i++) {
             if (width >= 0) System.arraycopy(newFrame.fields[i], 0, fields[i], 0, width);
@@ -67,7 +68,7 @@ public class Frame {
     }
 
     public void move(String direction) {
-        this.move = direction;
+        this.solution += direction;
         switch(direction) {
             case "U":
                 swapFields(zeroX, zeroY, zeroX, zeroY - 1);

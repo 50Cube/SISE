@@ -8,6 +8,7 @@ public class BFS extends Algorithm {
         this.searchOrderArray = searchOrder.split("");
     }
 
+    @Override
     public Frame solve() {
         this.getStatesToVisit().add(frame);
 
@@ -17,6 +18,9 @@ public class BFS extends Algorithm {
 
             if(this.isSolved(newFrame)) {
                 this.setFrame(newFrame);
+                this.setVisitedStatesAmount(this.getVisitedStates().size());
+                this.setProcessedStates(this.getVisitedStatesAmount());
+                this.setMaxRecursionDepth(this.frame.getSolution().length());
                 return this.frame;
             }
 
@@ -31,12 +35,5 @@ public class BFS extends Algorithm {
             }
         }
         return this.frame;
-    }
-
-    public String generateSolutionString() {
-        for(Frame f : this.getVisitedStates())
-            this.getSolution().append(f.getMove());
-
-        return this.getSolution().toString();
     }
 }

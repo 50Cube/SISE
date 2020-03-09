@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 
 public class FileOperations {
 
@@ -30,9 +31,9 @@ public class FileOperations {
         StringBuilder stringBuilder = new StringBuilder();
 
         if(algorithm.isSolved(algorithm.getFrame())) {
-            stringBuilder.append(algorithm.getSolution().toString().length());
+            stringBuilder.append(algorithm.getFrame().getSolution().length());
             stringBuilder.append(System.lineSeparator());
-            stringBuilder.append(algorithm.getSolution().toString());
+            stringBuilder.append(algorithm.getFrame().getSolution());
         }
         else stringBuilder.append(-1);
 
@@ -45,7 +46,7 @@ public class FileOperations {
         StringBuilder stringBuilder = new StringBuilder();
 
         if(algorithm.isSolved(algorithm.getFrame()))
-            stringBuilder.append(algorithm.getSolution().toString().length());
+            stringBuilder.append(algorithm.getFrame().getSolution().length());
         else stringBuilder.append(-1);
 
         stringBuilder.append(System.lineSeparator());
@@ -58,7 +59,8 @@ public class FileOperations {
         stringBuilder.append(algorithm.getMaxRecursionDepth());
 
         stringBuilder.append(System.lineSeparator());
-        stringBuilder.append(algorithm.getTime());
+        DecimalFormat decimalFormat = new DecimalFormat("0.000");
+        stringBuilder.append(decimalFormat.format(algorithm.getTime()));
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         writer.write(stringBuilder.toString());
