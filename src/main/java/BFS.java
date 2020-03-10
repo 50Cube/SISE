@@ -18,9 +18,7 @@ public class BFS extends Algorithm {
 
             if(this.isSolved(newFrame)) {
                 this.setFrame(newFrame);
-                this.setVisitedStatesAmount(this.getVisitedStates().size());
-                this.setProcessedStates(this.getVisitedStatesAmount());
-                this.setMaxRecursionDepth(this.frame.getSolution().length());
+                this.generateDetails();
                 return this.frame;
             }
 

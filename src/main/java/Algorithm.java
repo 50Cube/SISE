@@ -59,4 +59,10 @@ public abstract class Algorithm {
         this.setTime((System.nanoTime() - time) / 1000000.0);
         return frame;
     }
+
+    protected void generateDetails() {
+        this.setVisitedStatesAmount(this.getVisitedStates().size());
+        this.setProcessedStates(this.getVisitedStatesAmount());
+        this.setMaxRecursionDepth(this.frame.getSolution().length());
+    }
 }
