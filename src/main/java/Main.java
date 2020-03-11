@@ -22,11 +22,24 @@ public class Main {
             case "dfs":
                 System.out.println("Wybrano strategie przeszukiwania w glab");
                 DFS dfs = new DFS(frame,args[1]);
+                frame = dfs.run();
                 fileOperations.writeSolution(args[3],dfs);
                 fileOperations.writeDetails(args[4],dfs);
                 break;
             case "astr":
                 System.out.println("Wybrano strategie najpierw najlepszy");
+                if(args[1].equalsIgnoreCase("hamm")) {
+                    Hamming hamming = new Hamming(frame);
+                    frame = hamming.run();
+                    System.out.println(frame);
+                    System.out.println(hamming.getFrame().getSolution());
+                    fileOperations.writeSolution(args[3],hamming);
+                    fileOperations.writeDetails(args[4],hamming);
+                }
+                else if(args[1].equalsIgnoreCase("manh")) {
+
+                }
+                else System.out.println("Podano zla heurystyke");
                 break;
             default:
                 throw new IllegalArgumentException("Podano zly argument wyboru stretegii");

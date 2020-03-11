@@ -60,9 +60,22 @@ public abstract class Algorithm {
         return frame;
     }
 
-    protected void generateDetails() {
+    public void generateDetails() {
         this.setVisitedStatesAmount(this.getVisitedStates().size());
         this.setProcessedStates(this.getVisitedStatesAmount());
         this.setMaxRecursionDepth(this.frame.getSolution().length());
+    }
+
+    public int correctFieldsAmount(Frame frame) {
+        int count = 0;
+
+        for(int i=0; i<frame.getHeight(); i++) {
+            for(int j=0; j<frame.getWidth(); j++) {
+                if(frame.getField(i,j) == solvedFrame.getField(i,j))
+                    count++;
+            }
+        }
+
+        return count;
     }
 }
