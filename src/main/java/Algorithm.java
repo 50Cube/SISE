@@ -60,13 +60,13 @@ public abstract class Algorithm {
         return frame;
     }
 
-    public void generateDetails() {
+    protected void generateDetails() {
         this.setVisitedStatesAmount(this.getVisitedStates().size());
         this.setProcessedStates(this.getVisitedStatesAmount());
         this.setMaxRecursionDepth(this.frame.getSolution().length());
     }
 
-    public int correctFieldsAmount(Frame frame) {
+    protected int correctFieldsAmount(Frame frame) {
         int count = 0;
 
         for(int i=0; i<frame.getHeight(); i++) {
@@ -77,5 +77,18 @@ public abstract class Algorithm {
         }
 
         return count;
+    }
+
+    protected Frame findFrameWithMostCorrectFields(Queue<Frame> queue) {
+        int tmp = 0;
+        Frame tmpFrame = new Frame(solvedFrame);
+
+        for(Frame frame : queue) {
+            if(correctFieldsAmount(frame) > tmp)
+                tmpFrame = new Frame(frame);
+            tmp = correctFieldsAmount(tmpFrame);
+        }
+
+        return tmpFrame;
     }
 }

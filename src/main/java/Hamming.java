@@ -6,26 +6,55 @@ public class Hamming extends Algorithm {
         super(frame);
     }
 
+//    @Override
+//    public Frame solve() {
+//        this.getVisitedStates().add(frame);
+//        Frame newFrame;
+//
+//        while(correctFieldsAmount(frame) != frame.getWidth() * frame.getHeight()) {
+//            int correctFields = correctFieldsAmount(frame);
+//            newFrame = this.findFrameWithMostCorrectFields();
+//            this.getVisitedStates().add(newFrame);
+//
+//            for(String dir : direction) {
+//                Frame movedFrame = new Frame(newFrame);
+//                if(movedFrame.canMove(dir)) {
+//                    movedFrame.move(dir);
+//                    if(correctFieldsAmount(movedFrame) > correctFields && !this.getVisitedStates().contains(movedFrame)) {
+//                        this.getVisitedStates().add(movedFrame);
+//                        this.setFrame(movedFrame);
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+//        return frame;
+//    }
+
     @Override
     public Frame solve() {
-        Frame newFrame;
-
+        this.getStatesToVisit().add(frame);
         while(correctFieldsAmount(frame) != frame.getWidth() * frame.getHeight()) {
-            int correctFields = correctFieldsAmount(frame);
-            newFrame = new Frame(frame);
+            Frame newFrame = this.findFrameWithMostCorrectFields(this.getStatesToVisit());
+            this.getStatesToVisit().clear();
+            this.getVisitedStates().add(newFrame);
 
-            for(String dir : direction) {
-                Frame movedFrame = new Frame(newFrame);
-                if(movedFrame.canMove(dir)) {
+            if(this.isSolved(newFrame)) {
+                this.setFrame(newFrame);
+                this.generateDetails();
+                return this.frame;
+            }
+
+            for (String dir : direction) {
+                if(newFrame.canMove(dir)) {
+                    Frame movedFrame = new Frame(newFrame);
                     movedFrame.move(dir);
-                    if(correctFieldsAmount(movedFrame) > correctFields) {
-                        this.setFrame(movedFrame);
-                        correctFields = correctFieldsAmount(frame);
-                    }
+
+                    if(!this.getVisitedStates().contains(movedFrame))
+                        this.getStatesToVisit().add(movedFrame);
                 }
             }
         }
-        //this.setFrame(newFrame);
-        return frame;
+        return this.frame;
     }
 }

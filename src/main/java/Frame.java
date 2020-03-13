@@ -1,5 +1,7 @@
 import lombok.Data;
 
+import java.util.Arrays;
+
 @Data
 public class Frame {
     private int height;
@@ -103,5 +105,13 @@ public class Frame {
             sb.append(System.lineSeparator());
         }
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!obj.getClass().equals(this.getClass())) return false;
+
+        Frame frame = (Frame) obj;
+        return Arrays.deepEquals(this.getFields(), frame.getFields());
     }
 }
