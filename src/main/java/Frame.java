@@ -65,12 +65,12 @@ public class Frame {
         }
     }
 
-    public void generateNextFrames(String order, String[] orderArray, Frame frame) {
+    public void generateNextFrames(String order, String[] orderArray) {
         for (int i = 0; i < order.length(); i++) {
-            if (frame.canMove(orderArray[i])) {
-                Frame movedFrame = frame;
+            if (canMove(orderArray[i])) {
+                Frame movedFrame = this;
                 movedFrame.move(orderArray[i]);
-                frame.getNextFrames().add(movedFrame);
+                getNextFrames().add(movedFrame);
             }
         }
     }
