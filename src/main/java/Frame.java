@@ -1,6 +1,7 @@
 import lombok.Data;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Data
 public class Frame {
@@ -9,6 +10,8 @@ public class Frame {
     private int[][] fields;
     private int zeroX, zeroY;
     private String solution = "";
+    private int depth = 0;
+    private List<Frame> nextFrames;
 
     public Frame(int height, int width) {
         this.height = height;
@@ -60,6 +63,40 @@ public class Frame {
             default:
                 return false;
         }
+    }
+
+    public void generateNextFrames(String order, String[] orderArray, Frame frame) {
+        for (int i = 0; i < order.length(); i++) {
+            if (frame.canMove(orderArray[i])) {
+                Frame movedFrame = frame;
+                movedFrame.move(orderArray[i]);
+                frame.getNextFrames().add(movedFrame);
+            }
+        }
+    }
+
+
+
+//        {
+//            if(IsMovePossible(direction) && IsNotGoingBack(direction))
+//            {
+//                this.nextStates.Add(this.Move(direction));
+//            }
+//        }
+
+
+//    private void swapFields(int y1, int x1, int y2, int x2) {
+//        int previous = getTile(y1, x1);
+//        setTile(y1, x1, getTile(y2, x2));
+//        setTile(y2, x2, previous);
+//        zeroY = y2;
+//        zeroX = x2;
+//    }
+    private void setTile(int y, int x, int tile) {
+        fields[y][x] = tile;
+    }
+    private int getTile(int y, int x) {
+        return fields[y][x];
     }
 
     public void swapFields(int x1, int y1, int x2, int y2) {
