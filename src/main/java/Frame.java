@@ -13,6 +13,7 @@ public class Frame {
     private String solution = "";
     private int depth = 0;
     private List<Frame> nextFrames;
+    private Frame previousFrame;
 
     public Frame(int height, int width) {
         this.height = height;
@@ -22,6 +23,7 @@ public class Frame {
     }
 
     public Frame(Frame newFrame) {
+
         this.height = newFrame.getHeight();
         this.width = newFrame.getWidth();
         fields = new int[height][width];
@@ -111,6 +113,9 @@ public class Frame {
 
     public void move(String direction) {
         this.solution += direction;
+        Frame newFrame = new Frame(this);
+        newFrame.previousFrame = this;
+        newFrame.depth+=1;
         switch(direction) {
             case "U":
                 swapFields(zeroX, zeroY, zeroX, zeroY - 1);

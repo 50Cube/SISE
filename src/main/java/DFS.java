@@ -28,6 +28,7 @@ public class DFS extends Algorithm {
 
             Frame newFrame = toVisit.pop();
             System.out.println(newFrame.toString());
+            System.out.println(newFrame.getSolution());
             if (newFrame.getDepth() > this.maxDepth) {
                 newFrame.setDepth(maxDepth);
             }
@@ -48,9 +49,9 @@ public class DFS extends Algorithm {
                 visitedStates.put(newFrame, newFrame);
                 Frame movedFrame = newFrame;
                 newFrame.generateNextFrames(searchOrder, searchOrderArray, movedFrame);
-                List<Frame> nextFrames = newFrame.getNextFrames();
-                Collections.reverse(nextFrames);
-                for (Frame f : nextFrames) {
+                List<Frame> newFrames = newFrame.getNextFrames();
+                Collections.reverse(newFrames);
+                for (Frame f : newFrames) {
                     toVisit.push(f);
                     visitedStatesAmount++;
                 }
@@ -62,3 +63,5 @@ public class DFS extends Algorithm {
     return null;
     }
 }
+
+
