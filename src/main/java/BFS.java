@@ -32,6 +32,7 @@ public class BFS extends Algorithm {
                 }
             }
         }
+
         return this.frame;
     }
 }

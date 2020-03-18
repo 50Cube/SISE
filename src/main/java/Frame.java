@@ -1,5 +1,6 @@
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class Frame {
         this.height = height;
         this.width = width;
         this.fields = new int[height][width];
+        this.nextFrames = new ArrayList<Frame>();
     }
 
     public Frame(Frame newFrame) {
@@ -24,7 +26,7 @@ public class Frame {
         this.width = newFrame.getWidth();
         fields = new int[height][width];
         this.setSolution(newFrame.getSolution());
-
+        this.nextFrames = new ArrayList<Frame>();
         for(int i=0; i<height; i++) {
             if (width >= 0) System.arraycopy(newFrame.fields[i], 0, fields[i], 0, width);
         }
@@ -65,15 +67,16 @@ public class Frame {
         }
     }
 
-    public void generateNextFrames(String order, String[] orderArray) {
+    public void generateNextFrames(String order, String[] orderArray, Frame movedFrame) {
+
         for (int i = 0; i < order.length(); i++) {
             if (canMove(orderArray[i])) {
-                Frame movedFrame = this;
                 movedFrame.move(orderArray[i]);
-                getNextFrames().add(movedFrame);
+                nextFrames.add(movedFrame);
             }
         }
     }
+
 
 
 

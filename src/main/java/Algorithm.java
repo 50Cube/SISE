@@ -6,6 +6,7 @@ import java.util.Queue;
 @Data
 public abstract class Algorithm {
     protected int visitedStatesAmount;
+    protected int numberOfStates;
     private int processedStates;
     private int maxRecursionDepth;
     private double time;

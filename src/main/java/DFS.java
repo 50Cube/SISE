@@ -22,45 +22,43 @@ public class DFS extends Algorithm {
         Stack<Frame> toVisit = new Stack<Frame>();
         toVisit.push(frame);
         Map<Frame,Frame> visitedStates = new HashMap<Frame,Frame>();
-        setVisitedStatesAmount(1);
+        visitedStatesAmount=1;
 
         while(this.visitedStatesAmount != 0 && !solutionFound) {
 
             Frame newFrame = toVisit.pop();
-
+            System.out.println(newFrame.toString());
             if (newFrame.getDepth() > this.maxDepth) {
                 newFrame.setDepth(maxDepth);
             }
-            if(isSolved(newFrame)){
+            if (isSolved(newFrame)) {
                 return newFrame;
-            }
-            else
-            {
-                if(newFrame.getDepth() > DEPTH_LIMIT){
+            } else {
+                if (newFrame.getDepth() > DEPTH_LIMIT) {
                     continue;
                 }
 
-                if(visitedStates.containsKey(newFrame))
-                {
-                    if(newFrame.getDepth()>=visitedStates.get(newFrame).getDepth()){
+                if (visitedStates.containsKey(newFrame)) {
+                    if (newFrame.getDepth() >= visitedStates.get(newFrame).getDepth()) {
                         continue;
-                    }
-                    else{
+                    } else {
                         visitedStates.remove(newFrame);
                     }
                 }
-                visitedStates.put(frame,frame);
-                newFrame.generateNextFrames(searchOrder,searchOrderArray,newFrame);
-                List<Frame> nextFrames =  newFrame.getNextFrames();
-             //TODO: reverse List   nextFrames.reverse();
-
-
-
-
-
+                visitedStates.put(newFrame, newFrame);
+                Frame movedFrame = newFrame;
+                newFrame.generateNextFrames(searchOrder, searchOrderArray, movedFrame);
+                List<Frame> nextFrames = newFrame.getNextFrames();
+                Collections.reverse(nextFrames);
+                for (Frame f : nextFrames) {
+                    toVisit.push(f);
+                    visitedStatesAmount++;
+                }
             }
-
         }
-    return frame;
+        numberOfStates = visitedStates.size();
+
+
+    return null;
     }
 }
