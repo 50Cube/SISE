@@ -23,6 +23,8 @@ public class Main {
                 System.out.println("Wybrano strategie przeszukiwania w glab");
                 DFS dfs = new DFS(frame,args[1]);
                 frame = dfs.run();
+                System.out.println(frame);
+                System.out.println(dfs.getFrame().getSolution());
                 fileOperations.writeSolution(args[3],dfs);
                 fileOperations.writeDetails(args[4],dfs);
                 break;
