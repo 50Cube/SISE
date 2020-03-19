@@ -1,6 +1,8 @@
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Data
 public class Frame {
@@ -9,19 +11,24 @@ public class Frame {
     private int[][] fields;
     private int zeroX, zeroY;
     private String solution = "";
+    private int depth = 0;
+    private List<Frame> nextFrames;
+    private Frame previousFrame;
 
     public Frame(int height, int width) {
         this.height = height;
         this.width = width;
         this.fields = new int[height][width];
+        this.nextFrames = new ArrayList<Frame>();
     }
 
     public Frame(Frame newFrame) {
+
         this.height = newFrame.getHeight();
         this.width = newFrame.getWidth();
         fields = new int[height][width];
         this.setSolution(newFrame.getSolution());
-
+        this.nextFrames = new ArrayList<Frame>();
         for(int i=0; i<height; i++) {
             if (width >= 0) System.arraycopy(newFrame.fields[i], 0, fields[i], 0, width);
         }
@@ -62,6 +69,41 @@ public class Frame {
         }
     }
 
+    public void generateNextFrames(String order, String[] orderArray, Frame movedFrame) {
+
+        for (int i = 0; i < order.length(); i++) {
+            if (canMove(orderArray[i])) {
+                movedFrame.move(orderArray[i]);
+                nextFrames.add(movedFrame);
+            }
+        }
+    }
+
+
+
+
+//        {
+//            if(IsMovePossible(direction) && IsNotGoingBack(direction))
+//            {
+//                this.nextStates.Add(this.Move(direction));
+//            }
+//        }
+
+
+//    private void swapFields(int y1, int x1, int y2, int x2) {
+//        int previous = getTile(y1, x1);
+//        setTile(y1, x1, getTile(y2, x2));
+//        setTile(y2, x2, previous);
+//        zeroY = y2;
+//        zeroX = x2;
+//    }
+    private void setTile(int y, int x, int tile) {
+        fields[y][x] = tile;
+    }
+    private int getTile(int y, int x) {
+        return fields[y][x];
+    }
+
     public void swapFields(int x1, int y1, int x2, int y2) {
         int tmp = fields[y1][x1];
         fields[y1][x1] = fields[y2][x2];
@@ -71,6 +113,9 @@ public class Frame {
 
     public void move(String direction) {
         this.solution += direction;
+        Frame newFrame = new Frame(this);
+        newFrame.previousFrame = this;
+        newFrame.depth+=1;
         switch(direction) {
             case "U":
                 swapFields(zeroX, zeroY, zeroX, zeroY - 1);
