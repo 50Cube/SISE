@@ -77,6 +77,19 @@ public class Astar extends Algorithm {
     }
 
     private int Manhattan(Frame frame) {
-        return 0;
+        int count = 0;
+
+        for(int i=0; i<frame.getHeight(); i++) {
+            for(int j=0; j<frame.getWidth(); j++) {
+                int value = frame.getField(i,j);
+                if(value != 0) {
+                    int solvedX = this.getSolvedFrame().getCoordinatesByValue(value)[0];
+                    int solvedY = this.getSolvedFrame().getCoordinatesByValue(value)[1];
+                    count += Math.abs(i - solvedX) + Math.abs(j - solvedY);
+                }
+            }
+        }
+
+        return count;
     }
 }
