@@ -1,19 +1,24 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BFS extends Algorithm {
     private String searchOrder;
     private String[] searchOrderArray;
+    private Queue<Frame> statesToVisit;
 
     public BFS(Frame frame, String searchOrder) {
         super(frame);
         this.searchOrder = searchOrder;
         this.searchOrderArray = searchOrder.split("");
+        statesToVisit = new LinkedList<>();
     }
 
     @Override
     public Frame solve() {
-        this.getStatesToVisit().add(frame);
+        this.statesToVisit.add(frame);
 
-        while(!this.getStatesToVisit().isEmpty()) {
-            Frame newFrame = this.getStatesToVisit().poll();
+        while(!this.statesToVisit.isEmpty()) {
+            Frame newFrame = this.statesToVisit.poll();
             this.getVisitedStates().add(newFrame);
 
             if(this.isSolved(newFrame)) {
@@ -28,7 +33,7 @@ public class BFS extends Algorithm {
                     movedFrame.move(searchOrderArray[i]);
 
                     if(!this.getVisitedStates().contains(movedFrame))
-                        this.getStatesToVisit().add(movedFrame);
+                        this.statesToVisit.add(movedFrame);
                 }
             }
         }

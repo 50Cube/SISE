@@ -1,6 +1,7 @@
 import lombok.Data;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 @Data
@@ -14,13 +15,11 @@ public abstract class Algorithm {
     private Frame solvedFrame;
 
     private Queue<Frame> visitedStates;
-    private Queue<Frame> statesToVisit;
 
     public Algorithm(Frame frame) {
         this.frame = frame;
         generateSolvedFrame();
         visitedStates = new LinkedList<>();
-        statesToVisit = new LinkedList<>();
     }
 
     private void generateSolvedFrame() {
@@ -65,31 +64,5 @@ public abstract class Algorithm {
         this.setVisitedStatesAmount(this.getVisitedStates().size());
         this.setProcessedStates(this.getVisitedStatesAmount());
         this.setMaxRecursionDepth(this.frame.getSolution().length());
-    }
-
-    protected int correctFieldsAmount(Frame frame) {
-        int count = 0;
-
-        for(int i=0; i<frame.getHeight(); i++) {
-            for(int j=0; j<frame.getWidth(); j++) {
-                if(frame.getField(i,j) == solvedFrame.getField(i,j))
-                    count++;
-            }
-        }
-
-        return count;
-    }
-
-    protected Frame findFrameWithMostCorrectFields(Queue<Frame> queue) {
-        int tmp = 0;
-        Frame tmpFrame = new Frame(solvedFrame);
-
-        for(Frame frame : queue) {
-            if(correctFieldsAmount(frame) > tmp)
-                tmpFrame = new Frame(frame);
-            tmp = correctFieldsAmount(tmpFrame);
-        }
-
-        return tmpFrame;
     }
 }

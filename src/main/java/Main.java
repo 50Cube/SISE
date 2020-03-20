@@ -30,18 +30,12 @@ public class Main {
                 break;
             case "astr":
                 System.out.println("Wybrano strategie najpierw najlepszy");
-                if(args[1].equalsIgnoreCase("hamm")) {
-                    Hamming hamming = new Hamming(frame);
-                    frame = hamming.run();
-                    System.out.println(frame);
-                    System.out.println(hamming.getFrame().getSolution());
-                    fileOperations.writeSolution(args[3],hamming);
-                    fileOperations.writeDetails(args[4],hamming);
-                }
-                else if(args[1].equalsIgnoreCase("manh")) {
-
-                }
-                else System.out.println("Podano zla heurystyke");
+                Astar astar = new Astar(frame, args[1]);
+                frame = astar.run();
+                System.out.println(frame);
+                System.out.println(astar.getFrame().getSolution());
+                fileOperations.writeSolution(args[3], astar);
+                fileOperations.writeDetails(args[4], astar);
                 break;
             default:
                 throw new IllegalArgumentException("Podano zly argument wyboru stretegii");
