@@ -17,6 +17,7 @@ public abstract class Algorithm {
         this.frame = frame;
         generateSolvedFrame();
         visitedStates = new HashSet<>();
+        maxRecursionDepth = 0;
     }
 
     private void generateSolvedFrame() {
@@ -48,6 +49,12 @@ public abstract class Algorithm {
         return tmp;
     }
 
+    protected void incraseDepth(Frame frame) {
+        if(frame.getDepth() > this.getMaxRecursionDepth()) {
+            this.setMaxRecursionDepth(frame.getDepth());
+        }
+    }
+
     public abstract Frame solve();
 
     public Frame run() {
@@ -60,6 +67,5 @@ public abstract class Algorithm {
     protected void generateDetails() {
         this.setVisitedStatesAmount(this.getVisitedStates().size());
         this.setProcessedStates(this.getVisitedStatesAmount());
-        this.setMaxRecursionDepth(this.frame.getSolution().length());
     }
 }

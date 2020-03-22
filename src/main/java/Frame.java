@@ -11,11 +11,13 @@ public class Frame {
     private int[][] fields;
     private int zeroX, zeroY;
     private String solution = "";
+    private int depth;
 
     public Frame(int height, int width) {
         this.height = height;
         this.width = width;
         this.fields = new int[height][width];
+        this.depth = 0;
     }
 
     public Frame(Frame newFrame) {
@@ -23,6 +25,7 @@ public class Frame {
         this.height = newFrame.getHeight();
         this.width = newFrame.getWidth();
         fields = new int[height][width];
+        this.depth = newFrame.depth + 1;
         this.setSolution(newFrame.getSolution());
         for(int i=0; i<height; i++) {
             if (width >= 0) System.arraycopy(newFrame.fields[i], 0, fields[i], 0, width);

@@ -20,6 +20,7 @@ public class BFS extends Algorithm {
         while(!this.statesToVisit.isEmpty()) {
             Frame newFrame = this.statesToVisit.poll();
             this.getVisitedStates().add(newFrame);
+            this.incraseDepth(newFrame);
 
             if(this.isSolved(newFrame)) {
                 this.setFrame(newFrame);

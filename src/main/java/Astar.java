@@ -19,6 +19,7 @@ public class Astar extends Algorithm {
         while(!statesToVisit.isEmpty()) {
             Frame newFrame = findFrameWithTheLowestHeuristic();
             this.getVisitedStates().add(newFrame);
+            this.incraseDepth(newFrame);
 
             if(this.isSolved(newFrame)) {
                 this.setFrame(newFrame);

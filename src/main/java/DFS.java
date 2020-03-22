@@ -23,6 +23,7 @@ public class DFS extends Algorithm {
                 continue;
             }
             this.getVisitedStates().add(newFrame);
+            this.incraseDepth(newFrame);
 
             if(newFrame.getSolution().length() >= DEPTH_LIMIT) {
                 continue;
