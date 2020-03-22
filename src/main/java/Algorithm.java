@@ -1,7 +1,6 @@
 import lombok.Data;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.HashSet;
 
 @Data
 public abstract class Algorithm {
@@ -12,12 +11,12 @@ public abstract class Algorithm {
     protected Frame frame;
     private Frame solvedFrame;
 
-    private Queue<Frame> visitedStates;
+    private HashSet<Frame> visitedStates;
 
     public Algorithm(Frame frame) {
         this.frame = frame;
         generateSolvedFrame();
-        visitedStates = new LinkedList<>();
+        visitedStates = new HashSet<>();
     }
 
     private void generateSolvedFrame() {
