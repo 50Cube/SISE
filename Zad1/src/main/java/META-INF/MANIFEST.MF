@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: lombok-1.18.10.jar
+Main-Class: 
+
