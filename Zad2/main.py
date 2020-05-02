@@ -20,12 +20,19 @@ def calculate_outputs(dataframe, threshold):
 
 
 def build_model():
+    # units: Positive integer, dimensionality of the output space; liczebność neuronów chyba?
+    # funkcja aktywacji relu - rectified linear unit, f(z) is zero when z is less than zero and f(z) is equal to z when z is above or equal to zero.
+    # input shape = liczba kolumn w dataframe
     model = keras.Sequential([
         layers.Dense(64, activation='relu', input_shape=[len(train_dataset[0].keys())]),
-        layers.Dense(64, activation='relu',),
+        layers.Dense(64, activation='relu'),
         layers.Dense(2)
     ])
 
+
+    # mse - mean squared error (błąd średniokwadratowy), MSE jest wartością oczekiwaną kwadratu „błędu”, czyli różnicy między estymatorem a wartością estymowaną
+    # A metric is a function that is used to judge the performance of your model. mae - mean absolute error (średni bezwzględny błąd), informuje on o ile średnio
+    # w okresie prognoz, będzie wynosić odchylenie od wartości rzeczywistej. Czyli, krótko mówiąc, o jakim błędem miarowym jest obarczona nasza prognoza
     model.compile(loss='mse', optimizer = tf.keras.optimizers.RMSprop(0.001), metrics=['mae', 'mse'])
     return model
 
@@ -60,7 +67,15 @@ if __name__ == '__main__':
     solution_references = solution[['reference x', 'reference y']].dropna()
 
     model = build_model()
-    history = model.fit(train_dataset[0], train_dataset_labels[0], epochs=20, validation_split=0.2, verbose=0, callbacks=[tfdocs.modeling.EpochDots()])
+    model.summary()
+    # The patience parameter is the amount of epochs to check for improvement
+    early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)
+
+    # validation split - Fraction of the training data to be used as validation data
+    # verbose: Integer. 0, 1, or 2. Verbosity mode. 0 = silent, 1 = progress bar, 2 = one line per epoch.
+    # tfdocs.EpochDots simply prints a . for each epoch, and a full set of metrics every 100 epochs.
+    # EarlyStopping callback tests a training condition for every epoch. If a set amount of epochs elapses without showing improvement, then it stops the training
+    history = model.fit(train_dataset[0], train_dataset_labels[0], epochs=20, validation_split=0.2, verbose=0, callbacks=[early_stop, tfdocs.modeling.EpochDots()])
     hist = pd.DataFrame(history.history)
     hist['epoch'] = history.epoch
     hist.tail()
