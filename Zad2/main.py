@@ -61,7 +61,7 @@ if __name__ == '__main__':
     # verbose: Integer. 0, 1, or 2. Verbosity mode. 0 = silent, 1 = progress bar, 2 = one line per epoch.
     # tfdocs.EpochDots simply prints a . for each epoch, and a full set of metrics every 100 epochs.
     # EarlyStopping callback tests a training condition for every epoch. If a set amount of epochs elapses without showing improvement, then it stops the training
-    history = model.fit(train_datasets_measurement, train_datasets_reference, epochs=300, validation_split=0.1, verbose=0, callbacks=[tfdocs.modeling.EpochDots()])
+    history = model.fit(train_datasets_measurement, train_datasets_reference, epochs=1000, validation_split=0.1, verbose=0, callbacks=[tfdocs.modeling.EpochDots()])
 
     solution_predictions = model.predict(solution_measurements)
     solution_predictions_dataframe = pd.DataFrame(solution_predictions, columns=['x', 'y'])
